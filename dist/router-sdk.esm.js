@@ -2,11 +2,11 @@ import { Percent, validateAndParseAddress, Price, Fraction, CurrencyAmount, Trad
 import JSBI from 'jsbi';
 import { Interface } from '@ethersproject/abi';
 import invariant from 'tiny-invariant';
-import { abi } from '@uniswap/swap-router-contracts/artifacts/contracts/interfaces/IApproveAndCall.sol/IApproveAndCall.json';
+import IApproveAndCall from '@uniswap/swap-router-contracts/artifacts/contracts/interfaces/IApproveAndCall.sol/IApproveAndCall.json';
 import { NonfungiblePositionManager, toHex, Multicall, Payments, Pool, Route as Route$1, Trade as Trade$1, encodeRouteToPath, SelfPermit, Position } from '@uniswap/v3-sdk';
-import { abi as abi$1 } from '@uniswap/swap-router-contracts/artifacts/contracts/interfaces/IMulticallExtended.sol/IMulticallExtended.json';
-import { abi as abi$2 } from '@uniswap/swap-router-contracts/artifacts/contracts/interfaces/IPeripheryPaymentsWithFeeExtended.sol/IPeripheryPaymentsWithFeeExtended.json';
-import { abi as abi$3 } from '@uniswap/swap-router-contracts/artifacts/contracts/interfaces/ISwapRouter02.sol/ISwapRouter02.json';
+import IMulticallExtended from '@uniswap/swap-router-contracts/artifacts/contracts/interfaces/IMulticallExtended.sol/IMulticallExtended.json';
+import IPeripheryPaymentsWithFeeExtended from '@uniswap/swap-router-contracts/artifacts/contracts/interfaces/IPeripheryPaymentsWithFeeExtended.sol/IPeripheryPaymentsWithFeeExtended.json';
+import ISwapRouter02 from '@uniswap/swap-router-contracts/artifacts/contracts/interfaces/ISwapRouter02.sol/ISwapRouter02.json';
 import { Pair, Route, Trade as Trade$2 } from '@uniswap/v2-sdk';
 import { pack } from '@ethersproject/solidity';
 
@@ -19,6 +19,7 @@ var V2_FEE_PATH_PLACEHOLDER = 8388608;
 var ZERO_PERCENT = /*#__PURE__*/new Percent(ZERO);
 var ONE_HUNDRED_PERCENT = /*#__PURE__*/new Percent(100, 100);
 
+var abi = IApproveAndCall.abi;
 var ApprovalTypes;
 (function (ApprovalTypes) {
   ApprovalTypes[ApprovalTypes["NOT_REQUIRED"] = 0] = "NOT_REQUIRED";
@@ -118,6 +119,7 @@ var ApproveAndCall = /*#__PURE__*/function () {
 }();
 ApproveAndCall.INTERFACE = /*#__PURE__*/new Interface(abi);
 
+var abi$1 = IMulticallExtended.abi;
 function validateAndParseBytes32(bytes32) {
   if (!bytes32.match(/^0x[0-9a-fA-F]{64}$/)) {
     throw new Error(bytes32 + " is not valid bytes32.");
@@ -151,6 +153,7 @@ var MulticallExtended = /*#__PURE__*/function () {
 }();
 MulticallExtended.INTERFACE = /*#__PURE__*/new Interface(abi$1);
 
+var abi$2 = IPeripheryPaymentsWithFeeExtended.abi;
 function encodeFeeBips(fee) {
   return toHex(fee.multiply(10000).quotient);
 }
@@ -1205,6 +1208,7 @@ var Protocol;
 })(Protocol || (Protocol = {}));
 
 // V2 route wrapper
+// @ts-ignore
 var RouteV2 = /*#__PURE__*/function (_V2RouteSDK) {
   _inheritsLoose(RouteV2, _V2RouteSDK);
   function RouteV2(v2Route) {
@@ -1709,6 +1713,7 @@ var getOutputOfPools = function getOutputOfPools(pools, firstInputToken) {
   return outputToken;
 };
 
+var abi$3 = ISwapRouter02.abi;
 var ZERO$1 = /*#__PURE__*/JSBI.BigInt(0);
 var REFUND_ETH_PRICE_IMPACT_THRESHOLD = /*#__PURE__*/new Percent( /*#__PURE__*/JSBI.BigInt(50), /*#__PURE__*/JSBI.BigInt(100));
 /**
@@ -1911,7 +1916,9 @@ var SwapRouter = /*#__PURE__*/function () {
           inputAmount = _step3$value.inputAmount,
           outputAmount = _step3$value.outputAmount;
         if (route.protocol === Protocol.V2) {
-          individualTrades.push(new Trade$2(route, trades.tradeType === TradeType.EXACT_INPUT ? inputAmount : outputAmount, trades.tradeType));
+          individualTrades.push(new Trade$2(
+          // @ts-ignore
+          route, trades.tradeType === TradeType.EXACT_INPUT ? inputAmount : outputAmount, trades.tradeType));
         } else if (route.protocol === Protocol.V3) {
           individualTrades.push(Trade$1.createUncheckedTrade({
             route: route,

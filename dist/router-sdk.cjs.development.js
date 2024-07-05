@@ -6,13 +6,13 @@ function _interopDefault (ex) { return (ex && (typeof ex === 'object') && 'defau
 
 var sdkCore = require('@uniswap/sdk-core');
 var JSBI = _interopDefault(require('jsbi'));
-var abi = require('@ethersproject/abi');
+var abi$4 = require('@ethersproject/abi');
 var invariant = _interopDefault(require('tiny-invariant'));
-var IApproveAndCall_json = require('@uniswap/swap-router-contracts/artifacts/contracts/interfaces/IApproveAndCall.sol/IApproveAndCall.json');
+var IApproveAndCall = _interopDefault(require('@uniswap/swap-router-contracts/artifacts/contracts/interfaces/IApproveAndCall.sol/IApproveAndCall.json'));
 var v3Sdk = require('@uniswap/v3-sdk');
-var IMulticallExtended_json = require('@uniswap/swap-router-contracts/artifacts/contracts/interfaces/IMulticallExtended.sol/IMulticallExtended.json');
-var IPeripheryPaymentsWithFeeExtended_json = require('@uniswap/swap-router-contracts/artifacts/contracts/interfaces/IPeripheryPaymentsWithFeeExtended.sol/IPeripheryPaymentsWithFeeExtended.json');
-var ISwapRouter02_json = require('@uniswap/swap-router-contracts/artifacts/contracts/interfaces/ISwapRouter02.sol/ISwapRouter02.json');
+var IMulticallExtended = _interopDefault(require('@uniswap/swap-router-contracts/artifacts/contracts/interfaces/IMulticallExtended.sol/IMulticallExtended.json'));
+var IPeripheryPaymentsWithFeeExtended = _interopDefault(require('@uniswap/swap-router-contracts/artifacts/contracts/interfaces/IPeripheryPaymentsWithFeeExtended.sol/IPeripheryPaymentsWithFeeExtended.json'));
+var ISwapRouter02 = _interopDefault(require('@uniswap/swap-router-contracts/artifacts/contracts/interfaces/ISwapRouter02.sol/ISwapRouter02.json'));
 var v2Sdk = require('@uniswap/v2-sdk');
 var solidity = require('@ethersproject/solidity');
 
@@ -25,6 +25,7 @@ var V2_FEE_PATH_PLACEHOLDER = 8388608;
 var ZERO_PERCENT = /*#__PURE__*/new sdkCore.Percent(ZERO);
 var ONE_HUNDRED_PERCENT = /*#__PURE__*/new sdkCore.Percent(100, 100);
 
+var abi = IApproveAndCall.abi;
 (function (ApprovalTypes) {
   ApprovalTypes[ApprovalTypes["NOT_REQUIRED"] = 0] = "NOT_REQUIRED";
   ApprovalTypes[ApprovalTypes["MAX"] = 1] = "MAX";
@@ -121,8 +122,9 @@ var ApproveAndCall = /*#__PURE__*/function () {
   };
   return ApproveAndCall;
 }();
-ApproveAndCall.INTERFACE = /*#__PURE__*/new abi.Interface(IApproveAndCall_json.abi);
+ApproveAndCall.INTERFACE = /*#__PURE__*/new abi$4.Interface(abi);
 
+var abi$1 = IMulticallExtended.abi;
 function validateAndParseBytes32(bytes32) {
   if (!bytes32.match(/^0x[0-9a-fA-F]{64}$/)) {
     throw new Error(bytes32 + " is not valid bytes32.");
@@ -154,8 +156,9 @@ var MulticallExtended = /*#__PURE__*/function () {
   };
   return MulticallExtended;
 }();
-MulticallExtended.INTERFACE = /*#__PURE__*/new abi.Interface(IMulticallExtended_json.abi);
+MulticallExtended.INTERFACE = /*#__PURE__*/new abi$4.Interface(abi$1);
 
+var abi$2 = IPeripheryPaymentsWithFeeExtended.abi;
 function encodeFeeBips(fee) {
   return v3Sdk.toHex(fee.multiply(10000).quotient);
 }
@@ -198,7 +201,7 @@ var PaymentsExtended = /*#__PURE__*/function () {
   };
   return PaymentsExtended;
 }();
-PaymentsExtended.INTERFACE = /*#__PURE__*/new abi.Interface(IPeripheryPaymentsWithFeeExtended_json.abi);
+PaymentsExtended.INTERFACE = /*#__PURE__*/new abi$4.Interface(abi$2);
 
 function _regeneratorRuntime() {
   _regeneratorRuntime = function () {
@@ -1209,6 +1212,7 @@ var MixedRouteTrade = /*#__PURE__*/function () {
 })(exports.Protocol || (exports.Protocol = {}));
 
 // V2 route wrapper
+// @ts-ignore
 var RouteV2 = /*#__PURE__*/function (_V2RouteSDK) {
   _inheritsLoose(RouteV2, _V2RouteSDK);
   function RouteV2(v2Route) {
@@ -1713,6 +1717,7 @@ var getOutputOfPools = function getOutputOfPools(pools, firstInputToken) {
   return outputToken;
 };
 
+var abi$3 = ISwapRouter02.abi;
 var ZERO$1 = /*#__PURE__*/JSBI.BigInt(0);
 var REFUND_ETH_PRICE_IMPACT_THRESHOLD = /*#__PURE__*/new sdkCore.Percent( /*#__PURE__*/JSBI.BigInt(50), /*#__PURE__*/JSBI.BigInt(100));
 /**
@@ -1915,7 +1920,9 @@ var SwapRouter = /*#__PURE__*/function () {
           inputAmount = _step3$value.inputAmount,
           outputAmount = _step3$value.outputAmount;
         if (route.protocol === exports.Protocol.V2) {
-          individualTrades.push(new v2Sdk.Trade(route, trades.tradeType === sdkCore.TradeType.EXACT_INPUT ? inputAmount : outputAmount, trades.tradeType));
+          individualTrades.push(new v2Sdk.Trade(
+          // @ts-ignore
+          route, trades.tradeType === sdkCore.TradeType.EXACT_INPUT ? inputAmount : outputAmount, trades.tradeType));
         } else if (route.protocol === exports.Protocol.V3) {
           individualTrades.push(v3Sdk.Trade.createUncheckedTrade({
             route: route,
@@ -2143,7 +2150,7 @@ var SwapRouter = /*#__PURE__*/function () {
   };
   return SwapRouter;
 }();
-SwapRouter.INTERFACE = /*#__PURE__*/new abi.Interface(ISwapRouter02_json.abi);
+SwapRouter.INTERFACE = /*#__PURE__*/new abi$4.Interface(abi$3);
 
 exports.ADDRESS_THIS = ADDRESS_THIS;
 exports.ApproveAndCall = ApproveAndCall;
