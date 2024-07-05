@@ -1,6 +1,6 @@
 {
   "name": "@uniswap/router-sdk",
-  "version": "3.4.1-auroria.1",
+  "version": "3.4.2-auroria.1",
   "description": "An sdk for routing swaps using Uniswap v2 and Uniswap v3.",
   "repository": "https://github.com/adimov-eth/router-sdk.git",
   "keywords": [
@@ -30,7 +30,7 @@
     "@ethersproject/abi": "^5.5.0",
     "@uniswap/sdk-core": "github:adimov-eth/sdk-core",
     "@uniswap/swap-router-contracts": "^1.3.0",
-    "@uniswap/v2-sdk": "^4.3.2",
+    "@uniswap/v2-sdk": "^4.4.1",
     "@uniswap/v3-sdk": "github:adimov-eth/v3-sdk"
   },
   "devDependencies": {
