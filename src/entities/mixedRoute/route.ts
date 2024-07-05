@@ -69,10 +69,12 @@ export class MixedRouteSDK<TInput extends Currency, TOutput extends Currency> {
         return nextInput.equals(pool.token0)
           ? {
               nextInput: pool.token1,
+              //@ts-ignore
               price: price.multiply(pool.token0Price),
             }
           : {
               nextInput: pool.token0,
+              //@ts-ignore
               price: price.multiply(pool.token1Price),
             }
       },

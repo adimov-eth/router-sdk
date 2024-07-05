@@ -198,6 +198,76 @@ var PaymentsExtended = /*#__PURE__*/function () {
 }();
 PaymentsExtended.INTERFACE = /*#__PURE__*/new Interface(abi$2);
 
+function _arrayLikeToArray(r, a) {
+  (null == a || a > r.length) && (a = r.length);
+  for (var e = 0, n = Array(a); e < a; e++) n[e] = r[e];
+  return n;
+}
+function asyncGeneratorStep(n, t, e, r, o, a, c) {
+  try {
+    var i = n[a](c),
+      u = i.value;
+  } catch (n) {
+    return void e(n);
+  }
+  i.done ? t(u) : Promise.resolve(u).then(r, o);
+}
+function _asyncToGenerator(n) {
+  return function () {
+    var t = this,
+      e = arguments;
+    return new Promise(function (r, o) {
+      var a = n.apply(t, e);
+      function _next(n) {
+        asyncGeneratorStep(a, r, o, _next, _throw, "next", n);
+      }
+      function _throw(n) {
+        asyncGeneratorStep(a, r, o, _next, _throw, "throw", n);
+      }
+      _next(void 0);
+    });
+  };
+}
+function _defineProperties(e, r) {
+  for (var t = 0; t < r.length; t++) {
+    var o = r[t];
+    o.enumerable = o.enumerable || !1, o.configurable = !0, "value" in o && (o.writable = !0), Object.defineProperty(e, _toPropertyKey(o.key), o);
+  }
+}
+function _createClass(e, r, t) {
+  return r && _defineProperties(e.prototype, r), t && _defineProperties(e, t), Object.defineProperty(e, "prototype", {
+    writable: !1
+  }), e;
+}
+function _createForOfIteratorHelperLoose(r, e) {
+  var t = "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"];
+  if (t) return (t = t.call(r)).next.bind(t);
+  if (Array.isArray(r) || (t = _unsupportedIterableToArray(r)) || e && r && "number" == typeof r.length) {
+    t && (r = t);
+    var o = 0;
+    return function () {
+      return o >= r.length ? {
+        done: !0
+      } : {
+        done: !1,
+        value: r[o++]
+      };
+    };
+  }
+  throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
+}
+function _extends() {
+  return _extends = Object.assign ? Object.assign.bind() : function (n) {
+    for (var e = 1; e < arguments.length; e++) {
+      var t = arguments[e];
+      for (var r in t) ({}).hasOwnProperty.call(t, r) && (n[r] = t[r]);
+    }
+    return n;
+  }, _extends.apply(null, arguments);
+}
+function _inheritsLoose(t, o) {
+  t.prototype = Object.create(o.prototype), t.prototype.constructor = t, _setPrototypeOf(t, o);
+}
 function _regeneratorRuntime() {
   _regeneratorRuntime = function () {
     return e;
@@ -306,7 +376,7 @@ function _regeneratorRuntime() {
   function makeInvokeMethod(e, r, n) {
     var o = h;
     return function (i, a) {
-      if (o === f) throw new Error("Generator is already running");
+      if (o === f) throw Error("Generator is already running");
       if (o === s) {
         if ("throw" === i) throw a;
         return {
@@ -448,7 +518,7 @@ function _regeneratorRuntime() {
           } else if (c) {
             if (this.prev < i.catchLoc) return handle(i.catchLoc, !0);
           } else {
-            if (!u) throw new Error("try statement without catch or finally");
+            if (!u) throw Error("try statement without catch or finally");
             if (this.prev < i.finallyLoc) return handle(i.finallyLoc);
           }
         }
@@ -488,7 +558,7 @@ function _regeneratorRuntime() {
           return o;
         }
       }
-      throw new Error("illegal catch attempt");
+      throw Error("illegal catch attempt");
     },
     delegateYield: function (e, r, n) {
       return this.delegate = {
@@ -498,6 +568,11 @@ function _regeneratorRuntime() {
       }, "next" === this.method && (this.arg = t), y;
     }
   }, e;
+}
+function _setPrototypeOf(t, e) {
+  return _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function (t, e) {
+    return t.__proto__ = e, t;
+  }, _setPrototypeOf(t, e);
 }
 function _toPrimitive(t, r) {
   if ("object" != typeof t || !t) return t;
@@ -511,111 +586,14 @@ function _toPrimitive(t, r) {
 }
 function _toPropertyKey(t) {
   var i = _toPrimitive(t, "string");
-  return "symbol" == typeof i ? i : String(i);
+  return "symbol" == typeof i ? i : i + "";
 }
-function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {
-  try {
-    var info = gen[key](arg);
-    var value = info.value;
-  } catch (error) {
-    reject(error);
-    return;
+function _unsupportedIterableToArray(r, a) {
+  if (r) {
+    if ("string" == typeof r) return _arrayLikeToArray(r, a);
+    var t = {}.toString.call(r).slice(8, -1);
+    return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray(r, a) : void 0;
   }
-  if (info.done) {
-    resolve(value);
-  } else {
-    Promise.resolve(value).then(_next, _throw);
-  }
-}
-function _asyncToGenerator(fn) {
-  return function () {
-    var self = this,
-      args = arguments;
-    return new Promise(function (resolve, reject) {
-      var gen = fn.apply(self, args);
-      function _next(value) {
-        asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value);
-      }
-      function _throw(err) {
-        asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err);
-      }
-      _next(undefined);
-    });
-  };
-}
-function _defineProperties(target, props) {
-  for (var i = 0; i < props.length; i++) {
-    var descriptor = props[i];
-    descriptor.enumerable = descriptor.enumerable || false;
-    descriptor.configurable = true;
-    if ("value" in descriptor) descriptor.writable = true;
-    Object.defineProperty(target, _toPropertyKey(descriptor.key), descriptor);
-  }
-}
-function _createClass(Constructor, protoProps, staticProps) {
-  if (protoProps) _defineProperties(Constructor.prototype, protoProps);
-  if (staticProps) _defineProperties(Constructor, staticProps);
-  Object.defineProperty(Constructor, "prototype", {
-    writable: false
-  });
-  return Constructor;
-}
-function _extends() {
-  _extends = Object.assign ? Object.assign.bind() : function (target) {
-    for (var i = 1; i < arguments.length; i++) {
-      var source = arguments[i];
-      for (var key in source) {
-        if (Object.prototype.hasOwnProperty.call(source, key)) {
-          target[key] = source[key];
-        }
-      }
-    }
-    return target;
-  };
-  return _extends.apply(this, arguments);
-}
-function _inheritsLoose(subClass, superClass) {
-  subClass.prototype = Object.create(superClass.prototype);
-  subClass.prototype.constructor = subClass;
-  _setPrototypeOf(subClass, superClass);
-}
-function _setPrototypeOf(o, p) {
-  _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf(o, p) {
-    o.__proto__ = p;
-    return o;
-  };
-  return _setPrototypeOf(o, p);
-}
-function _unsupportedIterableToArray(o, minLen) {
-  if (!o) return;
-  if (typeof o === "string") return _arrayLikeToArray(o, minLen);
-  var n = Object.prototype.toString.call(o).slice(8, -1);
-  if (n === "Object" && o.constructor) n = o.constructor.name;
-  if (n === "Map" || n === "Set") return Array.from(o);
-  if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen);
-}
-function _arrayLikeToArray(arr, len) {
-  if (len == null || len > arr.length) len = arr.length;
-  for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i];
-  return arr2;
-}
-function _createForOfIteratorHelperLoose(o, allowArrayLike) {
-  var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"];
-  if (it) return (it = it.call(o)).next.bind(it);
-  if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") {
-    if (it) o = it;
-    var i = 0;
-    return function () {
-      if (i >= o.length) return {
-        done: true
-      };
-      return {
-        done: false,
-        value: o[i++]
-      };
-    };
-  }
-  throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
 }
 
 /**
@@ -659,7 +637,7 @@ var MixedRouteSDK = /*#__PURE__*/function () {
     this.input = input;
     this.output = output != null ? output : tokenPath[tokenPath.length - 1];
   }
-  _createClass(MixedRouteSDK, [{
+  return _createClass(MixedRouteSDK, [{
     key: "chainId",
     get: function get() {
       return this.pools[0].chainId;
@@ -676,9 +654,11 @@ var MixedRouteSDK = /*#__PURE__*/function () {
           price = _ref.price;
         return nextInput.equals(pool.token0) ? {
           nextInput: pool.token1,
+          //@ts-ignore
           price: price.multiply(pool.token0Price)
         } : {
           nextInput: pool.token0,
+          //@ts-ignore
           price: price.multiply(pool.token1Price)
         };
       }, this.pools[0].token0.equals(this.input.wrapped) ? {
@@ -691,7 +671,6 @@ var MixedRouteSDK = /*#__PURE__*/function () {
       return this._midPrice = new Price(this.input, this.output, price.denominator, price.numerator);
     }
   }]);
-  return MixedRouteSDK;
 }();
 
 /**
@@ -1122,7 +1101,7 @@ var MixedRouteTrade = /*#__PURE__*/function () {
     }
     return bestTradeExactIn;
   }();
-  _createClass(MixedRouteTrade, [{
+  return _createClass(MixedRouteTrade, [{
     key: "route",
     get: function get() {
       !(this.swaps.length === 1) ? process.env.NODE_ENV !== "production" ? invariant(false, 'MULTIPLE_ROUTES') : invariant(false) : void 0;
@@ -1197,7 +1176,6 @@ var MixedRouteTrade = /*#__PURE__*/function () {
       return this._priceImpact;
     }
   }]);
-  return MixedRouteTrade;
 }();
 
 var Protocol;
@@ -1210,7 +1188,6 @@ var Protocol;
 // V2 route wrapper
 // @ts-ignore
 var RouteV2 = /*#__PURE__*/function (_V2RouteSDK) {
-  _inheritsLoose(RouteV2, _V2RouteSDK);
   function RouteV2(v2Route) {
     var _this;
     _this = _V2RouteSDK.call(this, v2Route.pairs, v2Route.input, v2Route.output) || this;
@@ -1218,11 +1195,11 @@ var RouteV2 = /*#__PURE__*/function (_V2RouteSDK) {
     _this.pools = _this.pairs;
     return _this;
   }
+  _inheritsLoose(RouteV2, _V2RouteSDK);
   return RouteV2;
 }(Route);
 // V3 route wrapper
 var RouteV3 = /*#__PURE__*/function (_V3RouteSDK) {
-  _inheritsLoose(RouteV3, _V3RouteSDK);
   function RouteV3(v3Route) {
     var _this2;
     _this2 = _V3RouteSDK.call(this, v3Route.pools, v3Route.input, v3Route.output) || this;
@@ -1230,17 +1207,18 @@ var RouteV3 = /*#__PURE__*/function (_V3RouteSDK) {
     _this2.path = v3Route.tokenPath;
     return _this2;
   }
+  _inheritsLoose(RouteV3, _V3RouteSDK);
   return RouteV3;
 }(Route$1);
 // Mixed route wrapper
 var MixedRoute = /*#__PURE__*/function (_MixedRouteSDK) {
-  _inheritsLoose(MixedRoute, _MixedRouteSDK);
   function MixedRoute(mixedRoute) {
     var _this3;
     _this3 = _MixedRouteSDK.call(this, mixedRoute.pools, mixedRoute.input, mixedRoute.output) || this;
     _this3.protocol = Protocol.MIXED;
     return _this3;
   }
+  _inheritsLoose(MixedRoute, _MixedRouteSDK);
   return MixedRoute;
 }(MixedRouteSDK);
 
@@ -1262,6 +1240,7 @@ var Trade = /*#__PURE__*/function () {
       var _route = new RouteV2(routev2);
       this.routes.push(_route);
       this.swaps.push({
+        //@ts-ignore
         route: _route,
         inputAmount: _inputAmount,
         outputAmount: _outputAmount
@@ -1390,6 +1369,7 @@ var Trade = /*#__PURE__*/function () {
             populatedMixedRoutes = [];
             for (_iterator6 = _createForOfIteratorHelperLoose(v2Routes); !(_step6 = _iterator6()).done;) {
               _step6$value = _step6.value, routev2 = _step6$value.routev2, _amount = _step6$value.amount;
+              //@ts-ignore
               v2Trade = new Trade$2(routev2, _amount, tradeType);
               _inputAmount3 = v2Trade.inputAmount, _outputAmount3 = v2Trade.outputAmount;
               populatedV2Routes.push({
@@ -1474,6 +1454,7 @@ var Trade = /*#__PURE__*/function () {
               _context2.next = 9;
               break;
             }
+            //@ts-ignore
             v2Trade = new Trade$2(route, amount, tradeType);
             inputAmount = v2Trade.inputAmount, outputAmount = v2Trade.outputAmount;
             v2Routes = [{
@@ -1537,7 +1518,7 @@ var Trade = /*#__PURE__*/function () {
     }
     return fromRoute;
   }();
-  _createClass(Trade, [{
+  return _createClass(Trade, [{
     key: "inputAmount",
     get: function get() {
       if (this._inputAmount) {
@@ -1630,7 +1611,6 @@ var Trade = /*#__PURE__*/function () {
       return this._priceImpact;
     }
   }]);
-  return Trade;
 }();
 
 /**
@@ -1916,9 +1896,7 @@ var SwapRouter = /*#__PURE__*/function () {
           inputAmount = _step3$value.inputAmount,
           outputAmount = _step3$value.outputAmount;
         if (route.protocol === Protocol.V2) {
-          individualTrades.push(new Trade$2(
-          // @ts-ignore
-          route, trades.tradeType === TradeType.EXACT_INPUT ? inputAmount : outputAmount, trades.tradeType));
+          individualTrades.push(new Trade$2(route, trades.tradeType === TradeType.EXACT_INPUT ? inputAmount : outputAmount, trades.tradeType));
         } else if (route.protocol === Protocol.V3) {
           individualTrades.push(Trade$1.createUncheckedTrade({
             route: route,

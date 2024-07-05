@@ -1,5 +1,7 @@
 # build 
 # dist
-
+.yarn/cache
+.yarn/versions
+.yarn/install-state.gz
 # dependencies
 node_modules

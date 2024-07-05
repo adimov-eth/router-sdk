@@ -361,8 +361,7 @@ export abstract class SwapRouter {
         if (route.protocol === Protocol.V2) {
           individualTrades.push(
             new V2Trade(
-              // @ts-ignore
-              route as RouteV2<Currency, Currency>,
+              route as unknown as RouteV2<Currency, Currency>,
               trades.tradeType === TradeType.EXACT_INPUT ? inputAmount : outputAmount,
               trades.tradeType
             )
